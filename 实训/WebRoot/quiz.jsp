@@ -214,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     </ol>
     <br><br>
-   	<input type = "submit" name = "OK" id = "OK" value = "确认" >
+   	<input type = "submit" name = "OK" id = "OK" value = "确认"  >
    	<input type = "reset" name = "Reset" id = "Reset" value = "重置">
     </form>
 	
