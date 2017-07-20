@@ -20,6 +20,10 @@
      <servlet-name>showReport</servlet-name>
      <servlet-class>servlet.Analyse</servlet-class>
   </servlet>
+  <servlet>
+  <servlet-name>Adminservlet</servlet-name>
+  <servlet-class>servlet.AdmininforServlet</servlet-class>
+  </servlet>
    <servlet-mapping>
      <servlet-name>register</servlet-name>
      <url-pattern>/RegisterServlet</url-pattern>
@@ -39,7 +43,10 @@
     <servlet-name>recieveServlet</servlet-name>
     <url-pattern>/recieveAnswers</url-pattern>
   </servlet-mapping>
-  
+  <servlet-mapping>
+  <servlet-name>Adminservlet</servlet-name>
+  <url-pattern>/adminInfor</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

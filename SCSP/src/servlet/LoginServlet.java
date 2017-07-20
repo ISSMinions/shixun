@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		if (i==1){
 			//返回登录成功
-			req.getRequestDispatcher("/PersonalInfo.jsp").forward(req, resp);
+			req.getRequestDispatcher("/PersonalInfo_basic.jsp").forward(req, resp);
 		}else{
 			//设置弹窗，登录失败
 			PrintWriter out = resp.getWriter();

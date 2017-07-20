@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<div class="password-agileits">
 				<span class="username"style="height:19px">邀请码:</span>
-				<input type="password" name="invitePwd" class="invitePwd" id="number" onblur="checknumber()" >
+				<input type="password" name="invitePwd" class="password" id="number" onblur="checknumber()" >
 				<div class="clear"></div>
 			</div>
 			

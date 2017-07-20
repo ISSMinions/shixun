@@ -53,7 +53,7 @@
 	%>
 	<div class="main">
 		<div class="logo">
-			<a class="logo" title="学生消费调查系统logo" href="http://localhost:8080/实训/index.jsp"> <img
+			<a class="logo" title="学生消费调查系统logo" href="http://localhost:8080/SCSP/index.html"> <img
 				class="logo" alt="学生消费调查系统logo" src="img/10.png">
 			</a>
 		</div>
