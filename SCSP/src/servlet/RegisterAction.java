@@ -23,8 +23,8 @@ public class RegisterAction extends HttpServlet {
            String name=request.getParameter("uname");
            service service = new service();
            int i=0;
-		try {
-			i = service.queryUserByName(name);
+           try {
+			i= service.queryUserByName(name);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

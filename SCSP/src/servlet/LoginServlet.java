@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -38,7 +39,9 @@ public class LoginServlet extends HttpServlet {
 			req.getRequestDispatcher("/PersonalInfo.jsp").forward(req, resp);
 		}else{
 			//设置弹窗，登录失败
-			req.getRequestDispatcher("/Login.jsp").forward(req, resp);
+			PrintWriter out = resp.getWriter();
+			out.print("false");
+			/*req.getRequestDispatcher("/Login.jsp").forward(req, resp);*/
 		}
 	}
 	

@@ -69,8 +69,7 @@ public class recieveAnswers extends HttpServlet {
 
 		int a=service.addAnswerSheet(answersheet);
 		if(a==1){
-			//��ӳɹ�
-			//��ת����¼����
+		
 			try {
 				request.getRequestDispatcher("/FinishQuiz.jsp").forward(request, response);
 			} catch (ServletException e) {

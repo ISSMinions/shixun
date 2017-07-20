@@ -1,4 +1,5 @@
 package service;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.List;
 import beans.AnswerSheet;
 import beans.Manager;
 import beans.answerTimes;
+import beans.question_imfor;
 import jdbc.jdbcConn;
 
 public class service {
@@ -303,7 +305,106 @@ public class service {
 		
 	}
 	
- public void free()
+	public int executeUpdate(String sql,Object[] param){
+		 int row=0;
+			dbconnection = jdbcConn.getConnection();
+		 try {
+			ps = dbconnection.prepareStatement(sql);
+			if (param!=null&&param.length>=1) {
+				for (int i = 0; i < param.length; i++) {
+					ps.setObject((i+1), param[i]);
+				}
+			}
+			 row= ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			free();
+		}
+		return row;
+	 }
+	
+	public List executeQuery(String sql,Object[] param,Class cls){
+		 List list=new ArrayList();
+		 dbconnection = jdbcConn.getConnection();
+		 try {
+			ps=dbconnection.prepareStatement(sql);
+			if (param!=null&&param.length>0) {
+				for (int i = 0; i < param.length; i++) {
+					ps.setObject(i+1, param[i]);
+				}
+			}
+			rs=ps.executeQuery();
+			//��ȡ��������
+			Field[] fields=cls.getDeclaredFields();
+			while(rs.next())	{
+				Object obj=cls.newInstance();
+				
+				
+				for (int i = 0; i < fields.length; i++) {
+					Field field=fields[i];
+					//�������Կ��Է���
+					field.setAccessible(true);
+					String fieldname=field.getType().getName();
+					if (fieldname.equals("int")) {
+						field.set(obj, rs.getInt(i+1));
+					}
+					if (fieldname.equals("java.lang.String")) {
+						field.set(obj, rs.getString(i+1));
+					}
+					if (fieldname.equals("double")) {
+						field.set(obj,rs.getDouble(i+1));
+					}
+					if (fieldname.equals("java.util.Date")) {
+						field.set(obj, rs.getDate(i+1));
+					}
+				}
+				list.add(obj);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			free();
+		}		
+		return list;
+		 
+	 }
+	
+	public boolean Changepeason_infor(String adminname,String nickname,String sex,String phonenumber,String email,String birthday){
+		Object[] param={nickname,sex,phonenumber,email,birthday,adminname};
+		if (executeUpdate("update administrators set nickname=?,sex=?,phonenumber=?,email=?,birthday=? where administratorsname=?", param)==0)
+				return false;
+		return true;
+			}
+
+
+	public boolean Changesafe_infor(String newpwd, String oldpwd, String adminname) {
+				boolean pwd_check=false;
+				Object[] param_check={oldpwd,adminname};
+				if (executeQuery("select administratorsname from administrators where administratorsname=? and oldpwd=?", param_check,String.class )!=null)
+					pwd_check=true;
+				Object[] param_update={newpwd,adminname};
+				if (pwd_check) {
+					if(executeUpdate("update administrators set password=? where administratorsname=?", param_update)!=0)
+						return true;
+				}
+				return false;
+			}
+	
+	public List<question_imfor> count_option(String question_id){
+		String questionNum="question"+question_id;
+		Object[] param={questionNum,questionNum};
+		@SuppressWarnings("unchecked")
+		List<question_imfor> list=executeQuery("select ?,count(*) from result group by ?", param, question_imfor.class);
+		return list;
+	}
+	
+	
+	
+	public void free()
 	 {
 		try {
 			 if (rs!=null) 
